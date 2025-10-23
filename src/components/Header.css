@@ -16,6 +16,22 @@
   gap: 8px;
 }
 
+/* 1. BAGIAN KIRI: Logo dan Judul */
+.header-left {
+  /* PENTING: Mengambil semua ruang yang tersisa di sisi kiri search-container */
+  flex-grow: 1; 
+  /* Mendorong konten ke ujung kiri */
+  justify-content: flex-start;
+  /* Tambahkan margin untuk memberi sedikit ruang sebelum search-container */
+  margin-right: 16px; 
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .header-logo {
   width: 40px;
   height: 40px;
@@ -26,6 +42,48 @@
   font-weight: 400;
   color: #5f6368;
   letter-spacing: 0.25px;
+}
+
+/* 2. BAGIAN TENGAH: SEARCH BAR */
+.search-container {
+  /* Hapus flex-grow di sini. Biarkan dia mengambil lebar alaminya (max-width: 600px) */
+  max-width: 600px; 
+  width: 100%; /* Agar input di dalamnya bisa 100% */
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f1f3f4;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input::placeholder {
+  color: #80868b;
+}
+
+.search-input:focus {
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 0 1px 2px rgba(60, 64, 67, 0.15);
+}
+
+/* 3. BAGIAN KANAN: Tombol Dark Mode dan Navigasi */
+.header-right {
+  /* PENTING: Mengambil semua ruang yang tersisa di sisi kanan search-container */
+  flex-grow: 1; 
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  /* Mendorong konten ke ujung kanan */
+  justify-content: flex-end;
+  /* Tambahkan margin untuk memberi sedikit ruang setelah search-container */
+  margin-left: 16px; 
 }
 
 .dark-mode-toggle {
@@ -39,7 +97,6 @@
   justify-content: center;
   color: #5f6368;
   transition: all 0.2s ease;
-  margin-left: auto;
 }
 
 .dark-mode-toggle:hover {
@@ -54,32 +111,6 @@
 .dark-mode-toggle svg {
   width: 24px;
   height: 24px;
-}
-
-/* Dark mode styles */
-.dark-mode .header {
-  background-color: #202124;
-  border-bottom-color: #3c4043;
-}
-
-.dark-mode .header-title {
-  color: #e8eaed;
-}
-
-.dark-mode .dark-mode-toggle {
-  color: #e8eaed;
-}
-
-.dark-mode .dark-mode-toggle:hover {
-  background-color: rgba(232, 234, 237, 0.1);
-  color: #fff;
-}
-
-
-.header-brand {
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
 
 .header-nav {
@@ -105,4 +136,51 @@
 .header-nav button.active {
   background-color: #feefc3;
   font-weight: 500;
+}
+
+.dark-mode .header {
+  background-color: #202124;
+  border-bottom-color: #3c4043;
+}
+
+.dark-mode .header-title {
+  color: #e8eaed;
+}
+
+.dark-mode .dark-mode-toggle {
+  color: #e8eaed;
+}
+
+.dark-mode .dark-mode-toggle:hover {
+  background-color: rgba(232, 234, 237, 0.1);
+  color: #fff;
+}
+
+.dark-mode .search-input {
+  background-color: #303134;
+  border-color: #5f6368;
+  color: #e8eaed;
+}
+
+.dark-mode .search-input:focus {
+  background-color: #3c4043;
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1), 0 1px 2px rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .search-input::placeholder {
+  color: #9aa0a6;
+}
+
+.dark-mode .header-nav button {
+    color: #9aa0a6;
+}
+
+.dark-mode .header-nav button:hover {
+    background-color: rgba(232, 234, 237, 0.1);
+    color: #e8eaed;
+}
+
+.dark-mode .header-nav button.active {
+    background-color: #534324; 
+    color: #fff;
 }

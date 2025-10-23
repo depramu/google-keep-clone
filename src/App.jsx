@@ -8,8 +8,8 @@ import "./App.css";
 function App() {
   // --- STATE ---
   const [notes, setNotes] = useState([]);
-  // PENTING: State 'view' ini harus ada agar navigasi berfungsi
   const [view, setView] = useState('notes');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("keepDarkMode");
@@ -19,7 +19,14 @@ function App() {
   // --- USEEFFECT ---
   useEffect(() => {
     const savedNotes = localStorage.getItem("keepNotes");
-    if (savedNotes) setNotes(JSON.parse(savedNotes));
+    if (savedNotes) {
+      const parsedNotes = JSON.parse(savedNotes).map(note => ({
+        ...note,
+        isPinned: note.isPinned ?? false, 
+        isTrashed: note.isTrashed ?? false, 
+      }));
+      setNotes(parsedNotes);
+    }
   }, []);
 
   useEffect(() => {
@@ -37,10 +44,12 @@ function App() {
       id: Date.now(),
       title: noteData.title,
       content: noteData.content,
-      color: noteData.color || "#ffffff",
-      theme: noteData.theme || "none",
+      // Hapus properti 'color' dari newNote
+      // color: noteData.color || "#ffffff",
+      theme: noteData.theme || "none", // theme ini juga bisa dihapus jika tidak digunakan
       createdAt: new Date().toISOString(),
       isTrashed: false,
+      isPinned: noteData.isPinned || false, 
     };
     setNotes([newNote, ...notes]);
   };
@@ -50,7 +59,7 @@ function App() {
   };
 
   const trashNote = (id) => {
-    setNotes(notes.map((note) => note.id === id ? { ...note, isTrashed: true } : note));
+    setNotes(notes.map((note) => note.id === id ? { ...note, isTrashed: true, isPinned: false } : note));
   };
 
   const restoreNote = (id) => {
@@ -65,30 +74,51 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
+  const togglePin = (id) => {
+    setNotes(notes.map((note) =>
+      note.id === id ? { ...note, isPinned: !note.isPinned } : note
+    ));
+  };
+
   // --- FILTERING ---
-  const activeNotes = notes.filter(note => !note.isTrashed);
-  const trashedNotes = notes.filter(note => note.isTrashed);
+  const filteredNotes = notes.filter(note =>
+    (note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    note.content.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
+  const activeNotes = filteredNotes.filter(note => !note.isTrashed);
+  const trashedNotes = filteredNotes.filter(note => note.isTrashed);
 
   // --- RENDER ---
   return (
     <div className="app">
-      {/* <-- DIUBAH: Kirim props ke Header untuk navigasi */}
-      <Header onNavigate={setView} currentView={view} isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+      <Header
+        onNavigate={setView}
+        currentView={view}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+        onSearch={handleSearch}
+        searchTerm={searchTerm}
+      />
 
       <main className="app-main">
-        {/* <-- DITAMBAHKAN: Logika untuk mengganti tampilan */}
         {view === 'notes' ? (
           <>
             <NoteForm addNote={addNote} />
             <NotesList
-              notes={activeNotes} // <-- DIUBAH: Tampilkan hanya notes yang aktif
+              notes={activeNotes}
               updateNote={updateNote}
-              deleteNote={trashNote} // <-- DIUBAH: Gunakan fungsi trashNote
+              deleteNote={trashNote}
+              togglePin={togglePin}
             />
           </>
         ) : (
           <TrashList
-            notes={trashedNotes} // <-- Tampilkan notes yang di sampah
+            notes={trashedNotes}
             restoreNote={restoreNote}
             deleteNote={deletePermanently}
           />
@@ -96,7 +126,6 @@ function App() {
       </main>
     </div>
   );
-
 }
 
 export default App;
