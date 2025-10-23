@@ -124,3 +124,28 @@
 .dark-mode .note-form-button-secondary:hover {
   background-color: #5f6368;
 }
+
+/* Palet warna bundar */
+.color-palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.color-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.color-dot:hover {
+  transform: scale(1.1);
+}
+
+.color-dot.selected {
+  border-color: #5f6368;
+}

@@ -1,30 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import NoteForm from './components/NoteForm';
-import NotesList from './components/NotesList';
-import './App.css';
-
-// tes
+import React, { useState, useEffect } from "react";
+import Header from "./components/Header";
+import NoteForm from "./components/NoteForm";
+import NotesList from "./components/NotesList";
+import "./App.css";
 
 function App() {
   const [notes, setNotes] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('keepDarkMode');
+    const savedTheme = localStorage.getItem("keepDarkMode");
     return savedTheme ? JSON.parse(savedTheme) : false;
   });
 
   useEffect(() => {
-    const savedNotes = localStorage.getItem('keepNotes');
+    const savedNotes = localStorage.getItem("keepNotes");
     if (savedNotes) setNotes(JSON.parse(savedNotes));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('keepNotes', JSON.stringify(notes));
+    localStorage.setItem("keepNotes", JSON.stringify(notes));
   }, [notes]);
 
   useEffect(() => {
-    localStorage.setItem('keepDarkMode', JSON.stringify(isDarkMode));
-    document.body.classList.toggle('dark-mode', isDarkMode);
+    localStorage.setItem("keepDarkMode", JSON.stringify(isDarkMode));
+    document.body.classList.toggle("dark-mode", isDarkMode);
   }, [isDarkMode]);
 
   const addNote = (noteData) => {
@@ -32,6 +30,8 @@ function App() {
       id: Date.now(),
       title: noteData.title,
       content: noteData.content,
+      color: noteData.color || "#ffffff",
+      theme: noteData.theme || "none", 
       createdAt: new Date().toISOString(),
     };
     setNotes([newNote, ...notes]);
@@ -50,11 +50,15 @@ function App() {
   };
 
   return (
-    <div className={`app ${isDarkMode ? 'dark-mode' : ''}`}>
+    <div className={`app ${isDarkMode ? "dark-mode" : ""}`}>
       <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <main className="app-main">
         <NoteForm addNote={addNote} />
-        <NotesList notes={notes} updateNote={updateNote} deleteNote={deleteNote} />
+        <NotesList
+          notes={notes}
+          updateNote={updateNote}
+          deleteNote={deleteNote}
+        />
       </main>
     </div>
   );
