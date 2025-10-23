@@ -132,6 +132,35 @@
   background-color: #202124;
 }
 
+
+.note-actions {
+  /* ... (style yang sudah ada) */
+  display: flex; /* Tambahkan ini jika belum ada */
+  gap: 8px; /* Memberi jarak antar tombol */
+}
+
+/* Ganti dari .note-delete menjadi .note-action-button */
+.note-action-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #5f6368;
+  border-radius: 50%;
+  padding: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.note-action-button:hover {
+  background-color: rgba(95, 99, 104, 0.15);
+  color: #202124;
+}
+
+
+
 /* Dark mode styles */
 .dark-mode .note {
   background-color: #3c4043;

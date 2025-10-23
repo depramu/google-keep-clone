@@ -1,16 +1,30 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import NoteForm from "./components/NoteForm";
 import NotesList from "./components/NotesList";
 import "./App.css";
+=======
+import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
+import NoteForm from './components/NoteForm';
+import NotesList from './components/NotesList';
+import TrashList from './components/TrashList';
+import './App.css';
+>>>>>>> db236c08759c2e840a2aef20384b93c9cb395343
 
 function App() {
+  // --- STATE ---
   const [notes, setNotes] = useState([]);
+  // PENTING: State 'view' ini harus ada agar navigasi berfungsi
+  const [view, setView] = useState('notes');
+
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("keepDarkMode");
     return savedTheme ? JSON.parse(savedTheme) : false;
   });
 
+  // --- USEEFFECT ---
   useEffect(() => {
     const savedNotes = localStorage.getItem("keepNotes");
     if (savedNotes) setNotes(JSON.parse(savedNotes));
@@ -25,6 +39,7 @@ function App() {
     document.body.classList.toggle("dark-mode", isDarkMode);
   }, [isDarkMode]);
 
+  // --- FUNGSI-FUNGSI ---
   const addNote = (noteData) => {
     const newNote = {
       id: Date.now(),
@@ -33,6 +48,7 @@ function App() {
       color: noteData.color || "#ffffff",
       theme: noteData.theme || "none", 
       createdAt: new Date().toISOString(),
+      isTrashed: false,
     };
     setNotes([newNote, ...notes]);
   };
@@ -41,7 +57,15 @@ function App() {
     setNotes(notes.map((note) => (note.id === id ? updatedNote : note)));
   };
 
-  const deleteNote = (id) => {
+  const trashNote = (id) => {
+    setNotes(notes.map((note) => note.id === id ? { ...note, isTrashed: true } : note));
+  };
+
+  const restoreNote = (id) => {
+    setNotes(notes.map((note) => note.id === id ? { ...note, isTrashed: false } : note));
+  };
+
+  const deletePermanently = (id) => {
     setNotes(notes.filter((note) => note.id !== id));
   };
 
@@ -49,7 +73,13 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
+  // --- FILTERING ---
+  const activeNotes = notes.filter(note => !note.isTrashed);
+  const trashedNotes = notes.filter(note => note.isTrashed);
+
+  // --- RENDER ---
   return (
+<<<<<<< HEAD
     <div className={`app ${isDarkMode ? "dark-mode" : ""}`}>
       <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <main className="app-main">
@@ -59,6 +89,33 @@ function App() {
           updateNote={updateNote}
           deleteNote={deleteNote}
         />
+=======
+    <div className={`app ${isDarkMode ? 'dark-mode' : ''}`}>
+      {/* BAGIAN INI YANG MENYEBABKAN ERROR JIKA SALAH */}
+      <Header
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+        onNavigate={setView}  // <-- Pastikan ini ada!
+        currentView={view}    // <-- Pastikan ini ada!
+      />
+      <main className="app-main">
+        {view === 'notes' ? (
+          <>
+            <NoteForm addNote={addNote} />
+            <NotesList
+              notes={activeNotes}
+              updateNote={updateNote}
+              deleteNote={trashNote}
+            />
+          </>
+        ) : (
+          <TrashList
+            notes={trashedNotes}
+            restoreNote={restoreNote}
+            deleteNote={deletePermanently}
+          />
+        )}
+>>>>>>> db236c08759c2e840a2aef20384b93c9cb395343
       </main>
     </div>
   );
