@@ -15,22 +15,6 @@ function Header({ isDarkMode, toggleDarkMode, onNavigate, currentView }) {
                         </svg>
                         <h1 className="header-title">Keep</h1>
                     </div>
-
-                    {/* Navigasi: Tombol Notes dan Trash */}
-                    <nav className="header-nav">
-                        <button
-                            onClick={() => onNavigate('notes')}
-                            className={currentView === 'notes' ? 'active' : ''}
-                        >
-                            Notes
-                        </button>
-                        <button
-                            onClick={() => onNavigate('trash')}
-                            className={currentView === 'trash' ? 'active' : ''}
-                        >
-                            Trash
-                        </button>
-                    </nav>
                 </div>
 
                 {/* Bagian kanan: Tombol Dark Mode */}
@@ -50,6 +34,31 @@ function Header({ isDarkMode, toggleDarkMode, onNavigate, currentView }) {
                         </svg>
                     )}
                 </button>
+                 {/* Navigasi: Tombol Notes dan Trash */}
+                 <nav className="header-nav">
+                        <button
+                            onClick={() => onNavigate('notes')}
+                            className={currentView === 'notes' ? 'active' : ''}
+                            aria-label="Notes"
+                            title="Notes"
+                        >
+                            {/* Notes Icon (light bulb) */}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 017 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z" />
+                            </svg>
+                        </button>
+                        <button
+                            onClick={() => onNavigate('trash')}
+                            className={currentView === 'trash' ? 'active' : ''}
+                            aria-label="Trash"
+                            title="Trash"
+                        >
+                            {/* Trash Icon */}
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3 6h18v2H3V6zm2 3h14l-1.5 12.5c-.11.83-.83 1.5-1.67 1.5H8.17c-.84 0-1.56-.67-1.67-1.5L5 9zm5 2v7h2v-7h-2zm4 0v7h2v-7h-2zm-8 0v7h2v-7H6zm6-8C11.45 1 11 1.45 11 2v1h2V2c0-.55-.45-1-1-1z"/>
+                            </svg>
+                        </button>
+                    </nav>
             </div>
         </header>
     );

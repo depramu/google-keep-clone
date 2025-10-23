@@ -10,7 +10,7 @@ function Note({ note, updateNote, deleteNote, restoreNote, isInTrash = false }) 
   const [editColor, setEditColor] = useState(note.color || "#ffffff");
   const [showPalette, setShowPalette] = useState(false);
 
-    const colorPalette = [
+  const colorPalette = [
     "#ffffff", "#f28b82", "#fbbc04", "#fff475",
     "#ccff90", "#a7ffeb", "#cbf0f8", "#aecbfa",
     "#d7aefb", "#fdcfe8", "#e6c9a8", "#e8eaed",
@@ -24,13 +24,6 @@ function Note({ note, updateNote, deleteNote, restoreNote, isInTrash = false }) 
     setShowPalette(false);
   };
 
-  const handleCancel = () => {
-    setEditTitle(note.title);
-    setEditContent(note.content);
-    setEditColor(note.color || "#ffffff");
-    setIsEditing(false);
-    setShowPalette(false);
-  };
 
   // Fungsi handleCancel dari versi kedua, untuk membatalkan edit
   const handleCancel = () => {
@@ -39,38 +32,21 @@ function Note({ note, updateNote, deleteNote, restoreNote, isInTrash = false }) 
     setEditContent(note.content);
     setIsEditing(false);
   };
-  
+
   // Fungsi handleDelete yang lebih canggih dari versi kedua
   const handleDelete = () => {
-<<<<<<< HEAD
     if (window.confirm("Delete this note?")) deleteNote(note.id);
-=======
-    const confirmMessage = isInTrash 
-      ? 'Are you sure you want to permanently delete this note?'
-      : 'Move this note to trash?';
-      
-    if (window.confirm(confirmMessage)) {
-      deleteNote(note.id);
-    }
-  };
-  
-  // Fungsi baru untuk restore dari versi kedua
-  const handleRestore = () => {
-    if (restoreNote) { // Pastikan fungsi restoreNote ada
-        restoreNote(note.id);
-    }
->>>>>>> db236c08759c2e840a2aef20384b93c9cb395343
   };
 
   const noteStyle = { backgroundColor: editColor };
 
+  const handleRestore = () => {
+    restoreNote(note.id);
+  };
+
+
   return (
-<<<<<<< HEAD
     <div className="note" style={noteStyle}>
-=======
-    <div className="note">
-      {/* Gunakan Tampilan Edit yang lengkap dari versi pertama */}
->>>>>>> db236c08759c2e840a2aef20384b93c9cb395343
       {isEditing ? (
         <div className="note-edit">
           <input
@@ -116,7 +92,6 @@ function Note({ note, updateNote, deleteNote, restoreNote, isInTrash = false }) 
           </div>
 
           <div className="note-edit-actions">
-<<<<<<< HEAD
             <button onClick={handleSave} className="note-button note-button-save">
               Save
             </button>
@@ -126,11 +101,6 @@ function Note({ note, updateNote, deleteNote, restoreNote, isInTrash = false }) 
             >
               Cancel
             </button>
-=======
-            <button onClick={handleSave} className="note-button note-button-save">Save</button>
-            {/* Gunakan fungsi handleCancel yang baru */}
-            <button onClick={handleCancel} className="note-button note-button-cancel">Cancel</button>
->>>>>>> db236c08759c2e840a2aef20384b93c9cb395343
           </div>
         </div>
       ) : (
@@ -141,18 +111,6 @@ function Note({ note, updateNote, deleteNote, restoreNote, isInTrash = false }) 
           <p className="note-content">{note.content}</p>
 
           <div className="note-actions">
-<<<<<<< HEAD
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDelete();
-              }}
-              className="note-delete"
-              title="Delete note"
-            >
-=======
-            
-            {/* 3. Tambahkan Tombol Restore dari versi kedua */}
             {isInTrash && (
               <button
                 onClick={(e) => {
@@ -162,22 +120,21 @@ function Note({ note, updateNote, deleteNote, restoreNote, isInTrash = false }) 
                 className="note-action-button"
                 title="Restore note"
               >
-                {/* SVG untuk Restore */}
-                <svg width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 2c-5.621 0-10.211 4.44-10.475 10h-3.025l5 6.625 5-6.625h-2.975c.257-4.471 3.988-8 8.475-8s8.218 3.529 8.475 8h2.025c-.261-5.56-4.854-10-10.475-10z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M13 3a9 9 0 0 0-9 9H1l4 4l4-4H6a7 7 0 1 1 7 7a.5.5 0 0 0-1 0a8 8 0 1 0-8-8z" />
+                </svg>
               </button>
             )}
 
-            {/* Tombol Delete yang dinamis dari versi kedua */}
+
             <button
               onClick={(e) => {
-                e.stopPropagation(); // Mencegah mode edit aktif saat klik tombol
+                e.stopPropagation();
                 handleDelete();
               }}
-              className="note-action-button"
-              title={isInTrash ? "Delete permanently" : "Move to trash"}
+              className="note-delete"
+              title="Delete note"
             >
-              {/* SVG untuk Delete/Trash */}
->>>>>>> db236c08759c2e840a2aef20384b93c9cb395343
               <svg width="24" height="24" viewBox="0 0 24 24">
                 <path
                   fill="currentColor"

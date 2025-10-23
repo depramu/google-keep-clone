@@ -34,120 +34,45 @@ function NoteForm({ addNote }) {
     }
   };
 
-<<<<<<< HEAD
-  return (
-    <div className="note-form-container">
-      <form
-        className="note-form"
-        onSubmit={handleSubmit}
-        style={{ backgroundColor: color }}
-      >
-        {isExpanded && (
-          <input
-            type="text"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="note-form-input"
-            autoFocus
-          />
-        )}
 
-        <textarea
-          placeholder="Take a note..."
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          onClick={() => setIsExpanded(true)}
-          className="note-form-textarea"
-          rows={isExpanded ? 3 : 1}
+return (
+  <div className="note-form-container">
+    <form className="note-form" onSubmit={handleSubmit}>
+      {isExpanded && (
+        <input
+          type="text"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="note-form-input"
+          autoFocus
         />
-
-        {isExpanded && (
-          <>
-            <div className="color-palette">
-              {colorPalette.map((clr, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  className={`color-dot ${
-                    color === clr ? "selected" : ""
-                  }`}
-                  style={{ backgroundColor: clr }}
-                  onClick={() => setColor(clr)}
-                  title={clr}
-                />
-              ))}
-            </div>
-
-            <div className="note-form-actions">
-              <button type="submit" className="note-form-button">
-                Add Note
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsExpanded(false)}
-                className="note-form-button note-form-button-secondary"
-              >
-                Close
-              </button>
-            </div>
-          </>
-        )}
-      </form>
-    </div>
-  );
+      )}
+      <textarea
+        placeholder="Take a note..."
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        onClick={() => setIsExpanded(true)}
+        className="note-form-textarea"
+        rows={isExpanded ? 3 : 1}
+      />
+      {isExpanded && (
+        <div className="note-form-actions">
+          <button type="submit" className="note-form-button">
+            Add Note
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsExpanded(false)}
+            className="note-form-button note-form-button-secondary"
+          >
+            Close
+          </button>
+        </div>
+      )}
+    </form>
+  </div>
+);
 }
-=======
-  const handleExpand = () => {
- setIsExpanded(true);
- };
- // Close form when clicking outside
- const handleClose = () => {
- if (!title.trim() && !content.trim()) {
-    setIsExpanded(false);
- }
- };
->>>>>>> db236c08759c2e840a2aef20384b93c9cb395343
 
-
-
- return (
- <div className="note-form-container">
- <form className="note-form" onSubmit={handleSubmit}>
- {isExpanded && (
- <input
- type="text"
- placeholder="Title"
- value={title}
- onChange={(e) => setTitle(e.target.value)}
- className="note-form-input"
- autoFocus
- />
- )}
- <textarea
- placeholder="Take a note..."
- value={content}
- onChange={(e) => setContent(e.target.value)}
- onClick={handleExpand}
- className="note-form-textarea"
- rows={isExpanded ? 3 : 1}
- />
- {isExpanded && (
- <div className="note-form-actions">
- <button type="submit" className="note-form-button">
- Add Note
- </button>
- <button
- type="button"
- onClick={handleClose}
- className="note-form-button note-form-button-secondary"
->
- Close
- </button>
- </div>
- )}
- </form>
- </div>
- );
-}
 export default NoteForm;

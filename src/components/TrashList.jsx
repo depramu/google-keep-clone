@@ -1,13 +1,14 @@
 // src/components/TrashList.js
 import React from 'react';
 import Note from './Note';
-import './Note.css'; // Kita bisa pakai CSS yang sama
+import './NotesList.css'; // Kita bisa pakai CSS yang sama
 
 // 1. PASTIKAN Anda menerima 'deleteNote' di sini, BUKAN 'deletePermanently'
 function TrashList({ notes, restoreNote, deleteNote }) {
   if (notes.length === 0) {
     return (
       <div className="notes-empty">
+        <img src="https://img.icons8.com/?size=100&id=11650&format=png&color=FF9D00" alt="" />
         <p className="notes-empty-text">Your trash is empty.</p>
       </div>
     );

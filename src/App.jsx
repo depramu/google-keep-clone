@@ -1,17 +1,9 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import NoteForm from "./components/NoteForm";
 import NotesList from "./components/NotesList";
+import TrashList from "./components/TrashList";
 import "./App.css";
-=======
-import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import NoteForm from './components/NoteForm';
-import NotesList from './components/NotesList';
-import TrashList from './components/TrashList';
-import './App.css';
->>>>>>> db236c08759c2e840a2aef20384b93c9cb395343
 
 function App() {
   // --- STATE ---
@@ -46,7 +38,7 @@ function App() {
       title: noteData.title,
       content: noteData.content,
       color: noteData.color || "#ffffff",
-      theme: noteData.theme || "none", 
+      theme: noteData.theme || "none",
       createdAt: new Date().toISOString(),
       isTrashed: false,
     };
@@ -79,46 +71,32 @@ function App() {
 
   // --- RENDER ---
   return (
-<<<<<<< HEAD
-    <div className={`app ${isDarkMode ? "dark-mode" : ""}`}>
-      <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+    <div className="app">
+      {/* <-- DIUBAH: Kirim props ke Header untuk navigasi */}
+      <Header onNavigate={setView} currentView={view} isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+
       <main className="app-main">
-        <NoteForm addNote={addNote} />
-        <NotesList
-          notes={notes}
-          updateNote={updateNote}
-          deleteNote={deleteNote}
-        />
-=======
-    <div className={`app ${isDarkMode ? 'dark-mode' : ''}`}>
-      {/* BAGIAN INI YANG MENYEBABKAN ERROR JIKA SALAH */}
-      <Header
-        isDarkMode={isDarkMode}
-        toggleDarkMode={toggleDarkMode}
-        onNavigate={setView}  // <-- Pastikan ini ada!
-        currentView={view}    // <-- Pastikan ini ada!
-      />
-      <main className="app-main">
+        {/* <-- DITAMBAHKAN: Logika untuk mengganti tampilan */}
         {view === 'notes' ? (
           <>
             <NoteForm addNote={addNote} />
             <NotesList
-              notes={activeNotes}
+              notes={activeNotes} // <-- DIUBAH: Tampilkan hanya notes yang aktif
               updateNote={updateNote}
-              deleteNote={trashNote}
+              deleteNote={trashNote} // <-- DIUBAH: Gunakan fungsi trashNote
             />
           </>
         ) : (
           <TrashList
-            notes={trashedNotes}
+            notes={trashedNotes} // <-- Tampilkan notes yang di sampah
             restoreNote={restoreNote}
             deleteNote={deletePermanently}
           />
         )}
->>>>>>> db236c08759c2e840a2aef20384b93c9cb395343
       </main>
     </div>
   );
+
 }
 
 export default App;
