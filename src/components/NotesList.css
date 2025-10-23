@@ -51,3 +51,12 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Dark mode styles */
+.dark-mode .notes-empty {
+    color: #9aa0a6;
+}
+
+.dark-mode .notes-empty-text {
+    color: #9aa0a6;
+}

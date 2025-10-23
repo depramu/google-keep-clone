@@ -27,3 +27,50 @@
   color: #5f6368;
   letter-spacing: 0.25px;
 }
+
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5f6368;
+  transition: all 0.2s ease;
+  margin-left: auto;
+}
+
+.dark-mode-toggle:hover {
+  background-color: rgba(95, 99, 104, 0.1);
+  color: #202124;
+}
+
+.dark-mode-toggle:active {
+  background-color: rgba(95, 99, 104, 0.2);
+}
+
+.dark-mode-toggle svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Dark mode styles */
+.dark-mode .header {
+  background-color: #202124;
+  border-bottom-color: #3c4043;
+}
+
+.dark-mode .header-title {
+  color: #e8eaed;
+}
+
+.dark-mode .dark-mode-toggle {
+  color: #e8eaed;
+}
+
+.dark-mode .dark-mode-toggle:hover {
+  background-color: rgba(232, 234, 237, 0.1);
+  color: #fff;
+}

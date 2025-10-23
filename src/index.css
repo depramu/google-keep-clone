@@ -10,4 +10,11 @@ body {
   color: #202124;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Dark mode body styles */
+body.dark-mode {
+  background-color: #202124;
+  color: #e8eaed;
 }

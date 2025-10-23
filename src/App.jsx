@@ -6,6 +6,10 @@ import './App.css';
 
 function App() {
   const [notes, setNotes] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('keepDarkMode');
+    return savedTheme ? JSON.parse(savedTheme) : false;
+  });
 
   useEffect(() => {
     const savedNotes = localStorage.getItem('keepNotes');
@@ -15,6 +19,11 @@ function App() {
   useEffect(() => {
     localStorage.setItem('keepNotes', JSON.stringify(notes));
   }, [notes]);
+
+  useEffect(() => {
+    localStorage.setItem('keepDarkMode', JSON.stringify(isDarkMode));
+    document.body.classList.toggle('dark-mode', isDarkMode);
+  }, [isDarkMode]);
 
   const addNote = (noteData) => {
     const newNote = {
@@ -34,9 +43,13 @@ function App() {
     setNotes(notes.filter((note) => note.id !== id));
   };
 
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
-    <div className="app">
-      <Header />
+    <div className={`app ${isDarkMode ? 'dark-mode' : ''}`}>
+      <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <main className="app-main">
         <NoteForm addNote={addNote} />
         <NotesList notes={notes} updateNote={updateNote} deleteNote={deleteNote} />
