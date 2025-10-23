@@ -1,7 +1,7 @@
 // src/components/TrashList.js
 import React from 'react';
 import Note from './Note';
-import './NotesList.css'; // Kita bisa pakai CSS yang sama
+import './Note.css'; // Kita bisa pakai CSS yang sama
 
 // 1. PASTIKAN Anda menerima 'deleteNote' di sini, BUKAN 'deletePermanently'
 function TrashList({ notes, restoreNote, deleteNote }) {
