@@ -4,6 +4,8 @@ import NoteForm from './components/NoteForm';
 import NotesList from './components/NotesList';
 import './App.css';
 
+// tes
+
 function App() {
   const [notes, setNotes] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(() => {
